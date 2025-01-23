@@ -10,6 +10,11 @@ export class CartService {
   ) {}
 
   scan(sku: string): void {
+    // Check if the SKU exists in the product catalog
+    if (!this.productCatalog.has(sku)) {
+      throw new Error(`Product with SKU ${sku} not found`);
+    }
+
     if (this.cart.has(sku)) {
       this.cart.set(sku, this.cart.get(sku)! + 1);
     } else {
